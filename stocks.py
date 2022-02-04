@@ -1,16 +1,17 @@
 import pandas as pd 
+import numpy as np
+import yfinance as yf
 import requests as http
 import time
+import plotly.graph_objs as go
 
 TICKER = 'SPY'
-URL = 'https://api.tdameritrade.com/v1/marketdata/'+ TICKER +'/quotes'
-KEY = 'GQSAGBZTRBPRYACYABAH06ADCIAYCTX9' # don't make this public
-PAYLOAD = {'apikey': KEY}
 
-i=1
-while(i<10):
-    response = http.get(URL, params = PAYLOAD)
-    info = response.json()
-    print(float(info[TICKER]['closePrice']))
-    i+=1
-    time.sleep(60)
+KEY = 'GQSAGBZTRBPRYACYABAH06ADCIAYCTX9' # don't make this public
+
+
+
+
+data = yf.download(tickers=TICKER, period='1d', interval='1m')
+
+print(data["Close"])
